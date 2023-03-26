@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <title>Routing in AngularJS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" >
+  
+     <script src="https://code.angularjs.org/1.8.2/angular.min.js"></script>
+     <script src="https://code.angularjs.org/1.8.2/angular-route.min.js"></script>   
+   
+    </script>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: black;
+            color: wheat;
+            
+        }
+        nav{
+            width:98%;
+            position: relative;
+            /* border:1px solid red; */
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        a {
+            /* position: absolute; */
+            font-size: 20px;           
+            text-decoration: none;
+            padding: 0 10px;
+            font-family: cursive;
+            transition: all 0.4s ease-in-out;
+        }
+      
+
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid py-2 bg-dark rounded-3"  style="min-height:45px;">
+        <nav>
+            <a id="active1" href="#/">Home</a>
+            <a id="active2" href="#!tutorials">Tutorials</a>
+            <a id="active4" href="#!projectideas">Topics</a>
+            <a id="active3" href="#!courses">Courses</a>
+        </nav>
+    </div>
+    <div ng-view></div>
+
+    <script>
+        var app = angular.module("myApp", ["ngRoute"]);
+        app.config(function ($routeProvider) {
+            $routeProvider
+                .when("/", {
+                    templateUrl: "home.html",
+                })
+                .when("/tutorials", {
+                    templateUrl: "tutorials.html",
+                    controller: "tutorialsController",
+                })
+                .when("/courses", {
+                    templateUrl: "courses.html",
+                    controller: "coursesController",
+                })
+                .when("/projectideas", {
+                    templateUrl: "projectideas.html",
+                    controller: "projectideasController",
+                })
+                .otherwise({ redirectTo: "/" });
+        });
+        app.controller("tutorialsController", function ($scope) {
+            $scope.tutorials = [
+                "HTML5 and CSS3.",
+                "Javascript",
+                "Jquery",
+                "Bootstrap 5",
+                "AngularJS",
+            ];
+        });
+        app.controller("coursesController", function ($scope) {
+            $scope.courses =
+                ["Live Courses",
+                    "Self-Paced Courses",
+                    "School Courses"];
+        });
+        app.controller("projectideasController", function ($scope) {
+            $scope.html = [
+                "Introduction to HTML",
+                "Text-formatting tags",
+                "Different types of lists available.",
+                "What are semantic elememts in html5",
+                "how to add images,links and use imagemap",
+                "html5 audio and video tags",
+                "Html form,inputs tags and their attributes",
+            ];
+            $scope.css = [
+                "Introduction to CSS3",
+                "Different ways to add a css and their pros and cons",
+                "different types of selectors availble in css",
+                "position property and display property",
+                "linear-gradient, background-image property etc",
+                "Css flex and its properties",
+                "Css tranform ,animation and tranisition property",
+                "Css media queries",
+            ];
+            $scope.javascript = [
+                "Introduction to Javascript",
+                "how toimplement internal and external Js",
+                "variables and datatypes in Js",
+                "Operators and control statements in Js",
+                "different types of loops in js",
+                "built in string, number, array and Math function",
+            ];
+
+            $scope.projectideas = [
+                { course: "HTML5", projects: $scope.html },
+                { course: "Css3", projects: $scope.css },
+                { course: "Javascript", projects: $scope.javascript },
+            ];
+        });
+    </script>
+</body>
+
+</html>
